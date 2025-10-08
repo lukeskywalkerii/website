@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Luke's Data Tools</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <h1>Welcome to Luke's Data Tools</h1>
+  <h2>Statistics Calculator</h2>
+  <p>Enter numbers separated by commas:</p>
+  <input type="text" id="numberInput" placeholder="e.g. 5, 10, 15, 20" />
+  <button onclick="calculateStats()">Calculate</button>
+  <div id="results"></div>
+
+  <script>
+    function calculateStats() {
+      const input = document.getElementById("numberInput").value;
+      const numbers = input.split(",").map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+      const n = numbers.length;
+
+      if (n === 0) {
+        document.getElementById("results").textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      const mean = numbers.reduce((acc, val) => acc + val, 0) / n;
+
+      const variance = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / (n - 1);
+      const sd = Math.sqrt(variance);
+
+      const se = sd / Math.sqrt(n);
+      const ciLower = mean - 1.96 * se;
+      const ciUpper = mean + 1.96 * se;
+
+      document.getElementById("results").innerHTML = `
+        Mean: ${mean.toFixed(2)}<br>
+        Standard Deviation (SD): ${sd.toFixed(2)}<br>
+        Standard Error (SE): ${se.toFixed(2)}<br>
+        95% Confidence Interval: [${ciLower.toFixed(2)}, ${ciUpper.toFixed(2)}]
+      `;
+    }
+  </script>
+
+
+<hr>
+
+<h2>Correlation & Linear Regression</h2>
+<p>Enter paired X and Y values separated by commas:</p>
+<input type="text" id="xInput" placeholder="X values: e.g. 1, 2, 3, 4" />
+<input type="text" id="yInput" placeholder="Y values: e.g. 2, 4, 5, 7" />
+<button onclick="calculateRegression()">Calculate</button>
+<div id="regressionResults"></div>
+
+<script>
+  function calculateStats() {
+    const input = document.getElementById("numberInput").value;
+    const numbers = input.split(",").map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+    const n = numbers.length;
+
+    if (n === 0) {
+      document.getElementById("results").textContent = "Please enter valid numbers.";
+      return;
+    }
+
+    const mean = numbers.reduce((acc, val) => acc + val, 0) / n;
+    const variance = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / (n - 1);
+    const sd = Math.sqrt(variance);
+    const se = sd / Math.sqrt(n);
+    const ciLower = mean - 1.96 * se;
+    const ciUpper = mean + 1.96 * se;
+
+    document.getElementById("results").innerHTML = `
+      Mean: ${mean.toFixed(2)}<br>
+      Standard Deviation (SD): ${sd.toFixed(2)}<br>
+      Standard Error (SE): ${se.toFixed(2)}<br>
+      95% Confidence Interval: [${ciLower.toFixed(2)}, ${ciUpper.toFixed(2)}]
+    `;
+  }
+
+  function calculateRegression() {
+    const xVals = document.getElementById("xInput").value.split(",").map(n => parseFloat(n.trim()));
+    const yVals = document.getElementById("yInput").value.split(",").map(n => parseFloat(n.trim()));
+    const n = xVals.length;
+
+    if (n !== yVals.length || n < 2 || xVals.some(isNaN) || yVals.some(isNaN)) {
+      document.getElementById("regressionResults").textContent = "Please enter valid, equal-length numeric pairs.";
+      return;
+    }
+
+    const meanX = xVals.reduce((a, b) => a + b, 0) / n;
+    const meanY = yVals.reduce((a, b) => a + b, 0) / n;
+
+    let numerator = 0, denomX = 0, denomY = 0;
+    for (let i = 0; i < n; i++) {
+      const dx = xVals[i] - meanX;
+      const dy = yVals[i] - meanY;
+      numerator += dx * dy;
+      denomX += dx * dx;
+      denomY += dy * dy;
+    }
+
+    const correlation = numerator / Math.sqrt(denomX * denomY);
+    const slope = numerator / denomX;
+    const intercept = meanY - slope * meanX;
+
+    document.getElementById("regressionResults").innerHTML = `
+      Pearson Correlation (r): ${correlation.toFixed(4)}<br>
+      Regression Line: y = ${slope.toFixed(4)}x + ${intercept.toFixed(4)}
+    `;
+  }
+</script>
+  <ul>
+    <li><a href="data-topic1.html">What is data analysis?</a></li>
+    <li><a href="data-topic2.html">Where do I start?</a></li>
+  </ul>
+</body>
+</html>
