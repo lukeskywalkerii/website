@@ -1,0 +1,17 @@
+.centred_image {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 300px; /* adjust as needed */
+  height: auto;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.centred_text {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  font-family: Arial, sans-serif;
+}
