@@ -15,3 +15,47 @@
   margin-bottom: 40px;
   font-family: Arial, sans-serif;
 }
+
+#guessing-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: monospace;
+  background: #111;
+  color: #eee;
+  padding: 2em;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 2em auto;
+}
+
+#guessing-game input,
+#guessing-game button {
+  font-size: 1em;
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+}
+
+#guessing-game button {
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+#guessing-game button:hover {
+  background-color: #666;
+}
+
+#guessing-game #output {
+  white-space: pre-wrap;
+  margin-top: 1em;
+  background: #222;
+  padding: 1em;
+  border-radius: 5px;
+  text-align: left;
+  width: 100%;
+}

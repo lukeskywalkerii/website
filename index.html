@@ -17,5 +17,92 @@
             Domestic Shorthairs are generally healthy and resilient thanks to their varied genetic background, and they often live 12 to 20 years with proper care.
             Their personalities can vary widely: Some are playful and energetic, while others are calm and cuddly, making them excellent companions for families, singles, and seniors alike.
           </p>
+
+<div id="guessing-game">
+  <h2>🎮 Play the Cat's Favourite Guessing Game</h2>
+    <input type="text" id="userInput" placeholder="Enter your guess here">
+  <button onclick="submitInput()">Submit</button>
+  <div id="output"></div>
+
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <script>
+    let pyodideReady = false;
+    let pyodide;
+    let gameState = {
+      number: Math.floor(Math.random() * 6) + 1,
+      attempts: 0,
+      play: "y",
+      inReplayPrompt: false
+    };
+
+    async function setupPyodide() {
+      pyodide = await loadPyodide();
+      pyodideReady = true;
+      printToOutput("Guess the randomly selected number between 1 and 6.\nYou have 3 guesses.\n");
+    }
+
+    function printToOutput(text) {
+      const output = document.getElementById("output");
+      output.innerText += text + "\n";
+    }
+
+    async function submitInput() {
+      if (!pyodideReady) return;
+
+      let input = document.getElementById("userInput").value.trim();
+      document.getElementById("userInput").value = "";
+
+      if (gameState.inReplayPrompt) {
+        if (input.toLowerCase() === "y") {
+          gameState.number = Math.floor(Math.random() * 6) + 1;
+          gameState.attempts = 0;
+          gameState.inReplayPrompt = false;
+          printToOutput("\nNew game started!\nGuess the number between 1 and 6.\n");
+          return;
+        } else {
+          printToOutput("Thanks for playing!");
+          return;
+        }
+      }
+
+      let code = `
+user_input = "${input}"
+number = ${gameState.number}
+attempts = ${gameState.attempts}
+output = ""
+
+try:
+    guess = int(user_input)
+    if guess not in range(1, 7):
+        output += "Must be a number between 1 and 6.\\n"
+    elif guess == number:
+        output += "Well done - you guessed it!\\n"
+        attempts = 3
+    elif guess < number:
+        output += "Too low - try again.\\n"
+        attempts += 1
+    elif guess > number:
+        output += "Too high - try again.\\n"
+        attempts += 1
+except:
+    output += "Invalid input. Enter a number between 1 and 6.\\n"
+
+output, attempts
+      `;
+
+      let [result, newAttempts] = await pyodide.runPythonAsync(code);
+      gameState.attempts = newAttempts;
+      printToOutput(result);
+
+      if (gameState.attempts >= 3 && input != gameState.number) {
+        printToOutput(`OUT OF GUESSES\nThe number was ${gameState.number}\nGAME OVER!\n`);
+        printToOutput("Enter 'y' to play again or 'n' to quit.");
+        gameState.inReplayPrompt = true;
+      }
+    }
+
+    setupPyodide();
+  </script>
+</div>
     </body>
   </html>
