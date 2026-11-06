@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="description" content="Introduce Yourself">
+      <title>Introduce Yourself | My Cat</title>
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <a href="./index.html"><h1>Home</h1></a>
+      <h1 id="name" class="centred_text"></h1>
+      <h1 id="age" class="centred_text"></h1>
+      <h1 id="occupation" class="centred_text"></h1>
+      <h1 class="centred_text">Nice to meet you!</h1>
+      <script>
+        let name = prompt("What is your name?");
+        if (name !== null) {
+          document.getElementById("name").textContent = `Name: ${name}`;
+        } else {
+            document.getElementById("name").textContent = "Name:";
+        }
+        let age = prompt("How old are you?");
+        if (age !== null) {
+          document.getElementById("age").textContent = `Age: ${age}`;
+        } else {
+            document.getElementById("age").textContent = "Age:";
+        }
+        let occupation = prompt("What is your occupation?");
+        if (occupation !== null) {
+          document.getElementById("occupation").textContent = `Occupation: ${occupation}`;
+        } else {
+            document.getElementById("occupation").textContent = "Occupation:";
+        }
+      </script>
+    </body>
+  </html>
