@@ -5,10 +5,20 @@ html, body {
   background-color: #d0d0d0;
 }
 
-body {
-  padding-top: 40px;
-  box-sizing: border-box;
-  background: transparent;
+h1:hover {
+  color: #7d3cff;
+}
+
+h3:hover {
+  color: #1e90ff;
+}
+
+#sub_heading:hover {
+  color: #00bfff;
+}
+
+p:hover {
+  color: green;
 }
 
 .centred_image {
