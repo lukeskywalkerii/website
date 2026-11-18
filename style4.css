@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #d0d0d0;
+}
+
+h1 {
+  text-align: center;
+  margin: 100px 0 0 0;
+  font-size: 50px;
+}
+
+a {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  height: 700px;
+  margin: 100px;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  background-image: url("./images/kitten.jpg");
+}
+
+.a {
+  background-color: blue;
+  grid-row-start: 1;
+  grid-row-end: 7;
+}
+
+.b {
+  background-color: orange;
+  grid-row-start: 1;
+  grid-row-end: 6;
+}
+
+.c {
+  background-color: aqua;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  grid-column-start: 2;
+  grid-column-end: 7;
+}
+
+.d {
+  background-color: crimson;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 3;
+  grid-column-end: 6;
+}
+
+.e {
+  background-color: blueviolet;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  grid-column-start: 3;
+  grid-column-end: 6;
+}
+
+.f {
+  background-color: darkgreen;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  grid-column-start: 6;
+  grid-column-end: 7;
+}
